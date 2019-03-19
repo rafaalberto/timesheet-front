@@ -5,6 +5,7 @@ import NProgress from 'nprogress'
 import Home from '@/components/home/Home'
 import UserIndex from '@/components/admin/UserIndex'
 import UserForm from '@/components/admin/UserForm'
+import TimesheetForm from '@/components/admin/TimesheetForm'
 import Auth from '@/components/auth/Auth'
 
 import { userKey } from '@/global'
@@ -25,6 +26,11 @@ const routes = [{
     name: 'userForm',
     path: '/user/:id',
     component: UserForm
+},
+{
+    name: 'timesheetForm',
+    path: '/timesheet',
+    component: TimesheetForm
 },
 {
     name: 'auth',

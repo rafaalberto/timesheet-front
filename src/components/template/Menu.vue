@@ -4,6 +4,7 @@
         <ul class="sidebar-menu">
             <li><a href="#" @click.prevent="home"><i class="fa fa-home"></i> <span>Home</span></a></li>
             <li><a href="#" @click.prevent="user"><i class="fa fa-user"></i> <span>Usuários</span></a></li>
+            <li><a href="#" @click.prevent="timesheet"><i class="fa fa-table"></i> <span>Lançamentos</span></a></li>
         </ul>
     </section>
   </aside>
@@ -18,6 +19,9 @@ export default {
         },
         user() {
             this.$router.push({ path: '/user' })
+        },
+        timesheet() {
+            this.$router.push({ path: '/timesheet' })
         }
     }
 }
