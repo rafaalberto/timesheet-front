@@ -150,13 +150,24 @@ export default {
          this.timeOut = this.fetchDateTime(this.timeOut, this.lunchEnd)
 
          const dateTimeFormat = 'YYYY-MM-DD HH:mm'
-         this.timesheet.type = this.type,
-         this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)
-         this.timesheet.lunchStart = moment(this.lunchStart).format(dateTimeFormat)
-         this.timesheet.lunchEnd = moment(this.lunchEnd).format(dateTimeFormat)
-         this.timesheet.timeOut = moment(this.timeOut).format(dateTimeFormat)
+         this.timesheet.type = this.type
+         
          this.timesheet.hoursJourney = '07:20'
          this.timesheet.sumula90 = '01:00'
+
+         if(this.timesheet.type === 'REGULAR' || this.timesheet.type === 'HOLIDAY'){
+            this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)
+            this.timesheet.lunchStart = moment(this.lunchStart).format(dateTimeFormat)
+            this.timesheet.lunchEnd = moment(this.lunchEnd).format(dateTimeFormat)
+            this.timesheet.timeOut = moment(this.timeOut).format(dateTimeFormat)
+         }else if(this.timesheet.type === 'DAY_OFF'){ 
+            this.timeIn = new Date(`${this.date} 00:00`)
+            this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)
+            this.timesheet.lunchStart = moment(this.timeIn).format(dateTimeFormat)
+            this.timesheet.lunchEnd = moment(this.timeIn).format(dateTimeFormat)
+            this.timesheet.timeOut = moment(this.timeIn).format(dateTimeFormat)
+            this.timesheet.sumula90 = '00:00'
+         }
 
          const method = 'post'
          const url = `${baseApiUrl}/timesheet`
@@ -172,18 +183,23 @@ export default {
       },
       setDateTime() {
          const split = this.date.split('/')
-         const date = `${split[2]}/${split[1]}/${split[0]}`
-         this.timeIn = new Date(`${date} ${this.timeIn}`)
-         this.lunchStart = new Date(`${date} ${this.lunchStart}`)
-         this.lunchEnd = new Date(`${date} ${this.lunchEnd}`)
-         this.timeOut = new Date(`${date} ${this.timeOut}`)
+         this.date = `${split[2]}/${split[1]}/${split[0]}`
+         this.timeIn = new Date(`${this.date} ${this.timeIn}`)
+         this.lunchStart = new Date(`${this.date} ${this.lunchStart}`)
+         this.lunchEnd = new Date(`${this.date} ${this.lunchEnd}`)
+         this.timeOut = new Date(`${this.date} ${this.timeOut}`)
       },
       fetchDateTime(currentDateTime, previousDateTime) {
          const diff = moment(currentDateTime).diff(previousDateTime, 'minutes')
          return diff < 0 ? moment(currentDateTime).add(1, 'day') : currentDateTime 
       },
       reset(){
-         this.timesheet = []
+         this.type = 'REGULAR',
+         this.date = {},
+         this.timeIn = {},
+         this.lunchStart = {},
+         this.lunchEnd = {},
+         this.timeOut = {},
          this.$refs.date.focus()
       }
     },
