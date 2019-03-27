@@ -1,107 +1,100 @@
 <template>
-   <div>
-      <h3 class="title">Lançamento de Horas</h3>
-      <br>
-      <div class="box box-default">
-         <div class="box-header with-border">
-            <h3 class="box-title" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Cadastro</h3>
-         </div>
-         <form class="form-horizontal">
-            <div class="box-body">
-               <div class="row">
-                  <label class="col-xs-1 control-label" for="date">Data</label>
-                  <div class="col-xs-2">
-                     <input type="text" class="form-control" id="date" name="date" 
-                        v-model="date" ref="date" v-mask="'##/##/####'">
-                  </div>
-                  <label class="col-xs-1 control-label" for="type">Tipo</label>
-                  <div class="col-xs-2">
-                     <select class="form-control" name="type" id="type" v-model="type">
-                        <option value="REGULAR">Normal</option>
-                        <option value="DAY_OFF">Folga</option>
-                        <option value="HOLIDAY">Feriado</option>
-                     </select>
-                  </div>
-               </div>
-               <br>
-               <div class="row">
-                  <label class="col-xs-1 control-label" for="timeIn">Hr Inicial</label>
-                  <div class="col-xs-2">
-                     <input type="text" class="form-control" id="timeIn" name="timeIn" 
-                        v-model="timeIn" v-mask="'##:##'">
-                  </div>
-                  <label class="col-xs-1 control-label" for="lunchStart">Hr Final</label>
-                  <div class="col-xs-2">
-                     <input type="text" class="form-control" id="lunchStart" name="lunchStart" 
-                        v-model="lunchStart" v-mask="'##:##'">
-                  </div>
-                  <label class="col-xs-1 control-label" for="lunchEnd">Hr Inicial</label>
-                  <div class="col-xs-2">
-                     <input type="text" class="form-control" id="lunchEnd" name="lunchEnd" 
-                        v-model="lunchEnd" v-mask="'##:##'">
-                  </div>
-                  <label class="col-xs-1 control-label" for="timeOut">Hr Final</label>
-                  <div class="col-xs-2">
-                     <input type="text" class="form-control" id="timeOut" name="timeOut" 
-                        v-model="timeOut" v-mask="'##:##'">
-                  </div>
-               </div>
+    <div>
+        <h3 class="title">Lançamento de Horas</h3>
+        <br>
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Cadastro</h3>
             </div>
-            <div class="box-footer">
-               <div class="col-sm-9 col-sm-offset-2">
-                  <button type="submit" class="btn btn-primary" @click.prevent="save"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;Salvar</button>&nbsp;
-                  <button type="button" class="btn btn-default" @click.prevent="back"><i class="fa fa-mail-reply" aria-hidden="true"></i>&nbsp;Voltar</button>
-               </div>
-            </div>
-         </form>
-      </div>
-      <div class="box box-default">
-         <div class="box-header with-border">
-            <h3 class="box-title gray-color">
+            <form class="form-horizontal">
+                <div class="box-body">
+                    <div class="row">
+                        <label class="col-xs-1 control-label" for="date">Data</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="date" name="date" v-model="date" ref="date" v-mask="'##/##/####'">
+                        </div>
+                        <label class="col-xs-1 control-label" for="type">Tipo</label>
+                        <div class="col-xs-2">
+                            <select class="form-control" name="type" id="type" v-model="type">
+                                <option value="REGULAR">Normal</option>
+                                <option value="DAY_OFF">Folga</option>
+                                <option value="HOLIDAY">Feriado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <label class="col-xs-1 control-label" for="timeIn">Hr Inicial</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="timeIn" name="timeIn" v-model="timeIn" v-mask="'##:##'">
+                        </div>
+                        <label class="col-xs-1 control-label" for="lunchStart">Hr Final</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="lunchStart" name="lunchStart" v-model="lunchStart" v-mask="'##:##'">
+                        </div>
+                        <label class="col-xs-1 control-label" for="lunchEnd">Hr Inicial</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="lunchEnd" name="lunchEnd" v-model="lunchEnd" v-mask="'##:##'">
+                        </div>
+                        <label class="col-xs-1 control-label" for="timeOut">Hr Final</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="timeOut" name="timeOut" v-model="timeOut" v-mask="'##:##'">
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="col-sm-9 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary" @click.prevent="save"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;Salvar</button>&nbsp;
+                        <button type="button" class="btn btn-default" @click.prevent="back"><i class="fa fa-mail-reply" aria-hidden="true"></i>&nbsp;Voltar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="box box-default">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Lançamento</a></li>
+                    <li><a href="#timeline" data-toggle="tab">Resumo</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <div class="box-header with-border">
+                            <h3 class="box-title gray-color">
                <i class="fa fa-table"></i> &nbsp;Lista
             </h3>
-         </div>
-         <div class="box-body table-responsive">
-            <b-table responsive striped bordered :items="timesheets" :fields="fields" show-empty empty-text="Dados não encontrados">
-               <template slot="hoursWorked" slot-scope="data">
-                  <div class="text-center-align">{{data.item.hoursWorked}}</div>
-               </template>
-               <template slot="hoursJourney" slot-scope="data">
-                  <div class="text-center-align">{{data.item.hoursJourney}}</div>
-               </template>
-               <template slot="extraHours" slot-scope="data">
-                  <div class="text-center-align">{{data.item.extraHours}}</div>
-               </template>
-               <template slot="weeklyRest" slot-scope="data">
-                  <div class="text-center-align">{{data.item.weeklyRest}}</div>
-               </template>
-               <template slot="sumula90" slot-scope="data">
-                  <div class="text-center-align">{{data.item.sumula90}}</div>
-               </template>
-               <template slot="nightShift" slot-scope="data">
-                  <div class="text-center-align">{{data.item.nightShift}}</div>
-               </template>
-               <template slot="paidNightTime" slot-scope="data">
-                  <div class="text-center-align">{{data.item.paidNightTime}}</div>
-               </template>
-            </b-table>
-         </div>
-      </div>
-      <!-- <div class="col-md-9">
-         <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-               <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-               <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
-            </ul>
-            <div class="tab-content">
-               <div class="active tab-pane" id="activity">
-               </div>
-               <div class="tab-pane" id="timeline">
-               </div>
+                        </div>
+                        <div class="box-body table-responsive">
+                            <b-table responsive striped bordered :items="timesheets" :fields="fields" show-empty empty-text="Dados não encontrados">
+                                <template slot="hoursWorked" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.hoursWorked}}</div>
+                                </template>
+                                <template slot="hoursJourney" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.hoursJourney}}</div>
+                                </template>
+                                <template slot="extraHours" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.extraHours}}</div>
+                                </template>
+                                <template slot="weeklyRest" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.weeklyRest}}</div>
+                                </template>
+                                <template slot="sumula90" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.sumula90}}</div>
+                                </template>
+                                <template slot="nightShift" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.nightShift}}</div>
+                                </template>
+                                <template slot="paidNightTime" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.paidNightTime}}</div>
+                                </template>
+                            </b-table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="timeline">
+                    </div>
+                </div>
             </div>
-         </div>
-      </div> -->
-   </div>
+        </div>
+    </div>
 </template>
 
 <script>
