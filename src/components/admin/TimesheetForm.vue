@@ -81,6 +81,11 @@
                                 <template slot="paidNightTime" slot-scope="data">
                                     <div class="text-center-align">{{data.item.paidNightTime}}</div>
                                 </template>
+                                <template slot="delete" slot-scope="data">
+                                    <div class="text-center-align">
+                                        <b-button class="mr-2 btn btn-primary" @click="openDeleteModal(data.item)"><i class="fa fa-remove"></i></b-button>
+                                    </div>
+                                </template>
                             </b-table>
                         </div>
                     </div>
@@ -103,6 +108,7 @@
 import axios from 'axios'
 import { baseApiUrl, showError } from '@/global'
 import moment from 'moment'
+import NProgress from 'nprogress'
 export default {
     name: 'TimesheetForm',
     data() {
@@ -118,8 +124,8 @@ export default {
            timeOut: {},
            fields: [
                 { key: 'date', label: 'Data', thStyle: 'width: 14%' },
-                { key: 'type', label: 'Tipo', thStyle: 'width: 15%' },
-                { key: 'entry', label: 'Registros', thStyle: 'width: 22%' },
+                { key: 'type', label: 'Tipo', thStyle: 'width: 12%' },
+                { key: 'entry', label: 'Registros', thStyle: 'width: 20%' },
                 { key: 'hoursWorked', label: 'H. Trab', thStyle: 'text-align:center;width: 7%' },
                 { key: 'hoursJourney', label: 'Jornada', thStyle: 'text-align:center;width: 7%' },
                 { key: 'extraHours', label: 'H. Extras', thStyle: 'text-align:center;width: 7%' },
@@ -127,6 +133,7 @@ export default {
                 { key: 'sumula90', label: 'S.90', thStyle: 'text-align:center;width: 7%' },
                 { key: 'nightShift', label: 'ADN', thStyle: 'text-align:center;width: 7%' },
                 { key: 'paidNightTime', label: 'HNR', thStyle: 'text-align:center;width: 7%' },
+                { key: 'delete', label: 'Excluir', thStyle: 'text-align: center; width: 5%' }
             ],
             fieldsReport: [
                { key: 'typeCode', label: 'Código', thStyle: 'width: 10%' },
@@ -184,7 +191,8 @@ export default {
             .then(() => {
                this.$toasted.global.defaultSuccess()
                this.reset()
-               this.fetch()   
+               this.fetch()
+               this.fetchReport()   
             }).catch(showError)
       },
       back() {
@@ -210,7 +218,37 @@ export default {
          this.lunchEnd = {},
          this.timeOut = {},
          this.$refs.date.focus()
-      }
+      },
+      remove(item) {
+            NProgress.start()
+            const id = item.id
+            axios.delete(`${baseApiUrl}/timesheet/${id}`)
+                .then(() => {
+                    this.$toasted.global.defaultSuccess()
+                    this.fetch()
+                    this.fetchReport()
+                })
+                .catch(showError)
+            NProgress.done()
+        },
+      openDeleteModal(item) {
+            this.$bus.$emit('modal-open', {
+            title: 'Exclusão',
+            description: 'Deseja realmente excluir este registro?',
+            type: 'modal-primary',
+            confirmText: 'Confirmar',
+            cancelText: 'Cancelar',
+            confirmBefore: ()=> {
+               this.remove(item)
+            },
+            confirmAfter: () => {
+               
+            },
+            cancelBefore: () => {},
+            cancelAfter: () => {},
+            clickOverlay: () => {}
+            })
+        },
     },
     mounted() { 
       this.fetch()
