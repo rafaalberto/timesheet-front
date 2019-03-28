@@ -129,8 +129,9 @@ export default {
                 { key: 'paidNightTime', label: 'HNR', thStyle: 'text-align:center;width: 7%' },
             ],
             fieldsReport: [
-               { key: 'type', label: 'Tipo', thStyle: 'width: 15%' },
-                { key: 'hoursTotal', label: 'H. Trab', thStyle: 'width: 22%' },
+               { key: 'typeCode', label: 'Código', thStyle: 'width: 10%' },
+               { key: 'typeDescription', label: 'Tipo', thStyle: 'width: 20%' },
+               { key: 'totalHours', label: 'Total horas', thStyle: 'width: 20%' },
             ]
         }
     },
