@@ -58,11 +58,6 @@
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="activity">
-                        <div class="box-header with-border">
-                            <h3 class="box-title gray-color">
-               <i class="fa fa-table"></i> &nbsp;Lista
-            </h3>
-                        </div>
                         <div class="box-body table-responsive">
                             <b-table responsive striped bordered :items="timesheets" :fields="fields" show-empty empty-text="Dados não encontrados">
                                 <template slot="hoursWorked" slot-scope="data">
@@ -90,6 +85,13 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="timeline">
+                       <div class="box-body table-responsive">
+                            <b-table responsive striped bordered :items="reports" :fields="fieldsReport">
+                                <template slot="hoursWorked" slot-scope="data">
+                                    <div class="text-center-align">{{data.item.hoursWorked}}</div>
+                                </template>
+                            </b-table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,6 +109,7 @@ export default {
         return {
            timesheet: {},
            timesheets: [],
+           reports: [],
            date: {},
            type: 'REGULAR',
            timeIn: {},
@@ -125,6 +128,10 @@ export default {
                 { key: 'nightShift', label: 'ADN', thStyle: 'text-align:center;width: 7%' },
                 { key: 'paidNightTime', label: 'HNR', thStyle: 'text-align:center;width: 7%' },
             ],
+            fieldsReport: [
+               { key: 'type', label: 'Tipo', thStyle: 'width: 15%' },
+                { key: 'hoursTotal', label: 'H. Trab', thStyle: 'width: 22%' },
+            ]
         }
     },
     methods: {
@@ -133,6 +140,14 @@ export default {
          axios.get(url)
             .then(response => {
                this.timesheets = response.data
+            })
+            .catch(showError)
+      },
+      fetchReport() {
+         const url = `${baseApiUrl}/timesheet/docket`
+         axios.get(url)
+            .then(response => {
+               this.reports = response.data
             })
             .catch(showError)
       },
@@ -198,6 +213,7 @@ export default {
     },
     mounted() { 
       this.fetch()
+      this.fetchReport()
       this.$refs.date.focus()
     }
 }
