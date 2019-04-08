@@ -139,6 +139,7 @@ export default {
                { key: 'typeCode', label: 'Código', thStyle: 'width: 10%' },
                { key: 'typeDescription', label: 'Tipo', thStyle: 'width: 20%' },
                { key: 'totalHours', label: 'Total horas', thStyle: 'width: 20%' },
+               { key: 'totalCost', label: 'Total custo', thStyle: 'width: 20%' },
             ]
         }
     },
