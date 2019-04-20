@@ -5,6 +5,8 @@ import NProgress from 'nprogress'
 import Home from '@/components/home/Home'
 import UserIndex from '@/components/admin/UserIndex'
 import UserForm from '@/components/admin/UserForm'
+import CompanyIndex from '@/components/admin/CompanyIndex'
+import CompanyForm from '@/components/admin/CompanyForm'
 import TimesheetForm from '@/components/admin/TimesheetForm'
 import Auth from '@/components/auth/Auth'
 
@@ -21,6 +23,16 @@ const routes = [{
     name: 'userIndex',
     path: '/user',
     component: UserIndex
+},
+{
+    name: 'companyIndex',
+    path: '/company',
+    component: CompanyIndex
+},
+{
+    name: 'companyForm',
+    path: '/company/:id',
+    component: CompanyForm
 }
 ,{
     name: 'userForm',
