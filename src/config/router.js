@@ -7,6 +7,8 @@ import UserIndex from '@/components/admin/UserIndex'
 import UserForm from '@/components/admin/UserForm'
 import CompanyIndex from '@/components/admin/CompanyIndex'
 import CompanyForm from '@/components/admin/CompanyForm'
+import PositionIndex from '@/components/admin/PositionIndex'
+import PositionForm from '@/components/admin/PositionForm'
 import TimesheetForm from '@/components/admin/TimesheetForm'
 import Auth from '@/components/auth/Auth'
 
@@ -25,6 +27,11 @@ const routes = [{
     component: UserIndex
 },
 {
+    name: 'userForm',
+    path: '/user/:id',
+    component: UserForm
+},
+{
     name: 'companyIndex',
     path: '/company',
     component: CompanyIndex
@@ -33,11 +40,16 @@ const routes = [{
     name: 'companyForm',
     path: '/company/:id',
     component: CompanyForm
-}
-,{
-    name: 'userForm',
-    path: '/user/:id',
-    component: UserForm
+},
+{
+    name: 'positionIndex',
+    path: '/position',
+    component: PositionIndex
+},
+{
+    name: 'positionForm',
+    path: '/position/:id',
+    component: PositionForm
 },
 {
     name: 'timesheetForm',
