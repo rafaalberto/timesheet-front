@@ -6,6 +6,7 @@
             <li><a href="#" @click.prevent="user"><i class="fa fa-user"></i> <span>Usuários</span></a></li>
             <li><a href="#" @click.prevent="company"><i class="fa fa-building"></i> <span>Empresas</span></a></li>
             <li><a href="#" @click.prevent="position"><i class="fa fa-suitcase"></i> <span>Cargos</span></a></li>
+            <li><a href="#" @click.prevent="employee"><i class="fa fa-users"></i> <span>Colaboradores</span></a></li>
             <li><a href="#" @click.prevent="timesheet"><i class="fa fa-table"></i> <span>Lançamentos</span></a></li>
         </ul>
     </section>
@@ -27,6 +28,9 @@ export default {
         },
         position() {
             this.$router.push({ path: '/position' })
+        },
+        employee() {
+            this.$router.push({ path: '/employee' })
         },
         timesheet() {
             this.$router.push({ path: '/timesheet' })
