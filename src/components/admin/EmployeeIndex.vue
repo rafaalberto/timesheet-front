@@ -17,7 +17,7 @@
             <div class="row">
                <div class="col-md-3">
                   <label for="name">Nome</label>
-                  <input type="text" id="name" class="form-control" v-model="employeeSearch.name">
+                  <input type="text" id="name" class="form-control" v-model="employeeSearch.name" ref="name">
                </div>
             </div>
          </div>
@@ -79,6 +79,7 @@ export default {
             fields: [
                 { key: 'id', label: 'ID', sortable: true, thStyle: 'width: 15%' },
                 { key: 'name', label: 'Name', sortable: true, thStyle: 'width: 35%' },
+                { key: 'recordNumber', label: 'Nº Registro', sortable: true, thStyle: 'width: 20%' },
                 { key: 'edit', label: 'Editar', thStyle: 'text-align: center; width: 5%' },
                 { key: 'delete', label: 'Excluir', thStyle: 'text-align: center; width: 5%' }
             ],
