@@ -57,6 +57,15 @@
                      </select>
                   </div>
                </div>
+               <div class="form-group">
+                  <label class="col-sm-2 control-label" for="status">Situação<b class="required-field"> *</b></label>
+                  <div class="col-sm-3">
+                     <select class="form-control" name="status" id="status" v-model="employee.status">
+                        <option value="ACTIVE">Ativo</option>
+                        <option value="INACTIVE">Inativo</option>
+                     </select>
+                  </div>
+               </div>
             </div>
             <div class="box-footer">
                <div class="col-sm-9 col-sm-offset-2">
@@ -80,6 +89,7 @@ export default {
     data() {
         return {
             employee: {
+               status: 'ACTIVE',
                company: {},
                position: {}
             },

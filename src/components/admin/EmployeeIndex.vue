@@ -19,6 +19,14 @@
                   <label for="name">Nome</label>
                   <input type="text" id="name" class="form-control" v-model="employeeSearch.name" ref="name">
                </div>
+               <div class="col-md-3">
+                  <label for="profile">Situação</label>
+                  <select class="form-control" id="status" v-model="employeeSearch.status">
+                     <option value="">Todos</option>
+                     <option value="ACTIVE">Ativo</option>
+                     <option value="INACTIVE">Inativo</option>
+                  </select>
+               </div>
             </div>
          </div>
          <div class="box-footer text-center">
@@ -71,7 +79,8 @@ export default {
         return {
             employees: [],
             employeeSearch: {
-               document: ''
+               document: '',
+               status: 'ACTIVE'
             },
             currentPage: 1,
             size: 10,
@@ -80,6 +89,9 @@ export default {
                 { key: 'id', label: 'ID', sortable: true, thStyle: 'width: 15%' },
                 { key: 'name', label: 'Name', sortable: true, thStyle: 'width: 35%' },
                 { key: 'recordNumber', label: 'Nº Registro', sortable: true, thStyle: 'width: 20%' },
+                { key: 'status', label: 'Situação', sortable: true,
+                    formatter: value => value === 'ACTIVE' ? 'Ativo' : 'Inativo',
+                    thStyle: 'width: 20%' },
                 { key: 'edit', label: 'Editar', thStyle: 'text-align: center; width: 5%' },
                 { key: 'delete', label: 'Excluir', thStyle: 'text-align: center; width: 5%' }
             ],
@@ -112,6 +124,9 @@ export default {
         fetchSearchUrl(url) {
             if(this.employeeSearch.name !== undefined && this.employeeSearch.name.trim() !== "") {
                url = url + `&name=${this.employeeSearch.name.trim()}`
+            }
+            if(this.employeeSearch.status !== undefined && this.employeeSearch.status !== "") {
+               url = url + `&status=${this.employeeSearch.status}`
             }
             return url
         },
@@ -146,12 +161,12 @@ export default {
         },
     },
     mounted() {
-        this.fetch()
+        this.search()
         this.$refs.name.focus()
     },
     watch: {
         currentPage() {
-            this.fetch()
+            this.search()
         }
     }
 }
