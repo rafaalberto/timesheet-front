@@ -17,7 +17,7 @@
             <div class="row">
                <div class="col-md-3">
                   <label for="title">Título</label>
-                  <input type="text" id="title" class="form-control" v-model="positionSearch.title">
+                  <input type="text" id="title" class="form-control" v-model="positionSearch.title" ref="title">
                </div>
             </div>
          </div>

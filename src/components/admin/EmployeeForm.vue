@@ -44,8 +44,16 @@
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="position">Cargo<b class="required-field"> *</b></label>
                   <div class="col-sm-3">
-                     <select class="form-control" name="position" id="position" v-model="employee.positionId">
-                        <option value="1">Administrador</option>
+                     <select class="form-control" name="position" id="position" v-model="employee.position.id">
+                        <option :value="position.id" v-for="position in positions" :key="position.id">{{ position.title }}</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="col-sm-2 control-label" for="company">Empresa<b class="required-field"> *</b></label>
+                  <div class="col-sm-3">
+                     <select class="form-control" name="company" id="company" v-model="employee.company.id">
+                        <option :value="company.id" v-for="company in companies" :key="company.id">{{ company.name }}</option>
                      </select>
                   </div>
                </div>
@@ -71,8 +79,13 @@ export default {
     },
     data() {
         return {
-            employee: {},
+            employee: {
+               company: {},
+               position: {}
+            },
             employeeId: this.$route.params.id,
+            positions: [],
+            companies: []
         }
     },
     methods: {
@@ -94,6 +107,22 @@ export default {
         axios.get(url)
           .then(res => this.employee = res.data)
           .catch(showError)
+      },
+      fetchPositions() {
+         const url = `${baseApiUrl}/positions`
+         axios.get(url)
+            .then(response => {
+               this.positions = response.data.content
+            })
+         .catch(showError)
+      },
+      fetchCompanies() {
+         const url = `${baseApiUrl}/companies`
+         axios.get(url)
+            .then(response => {
+               this.companies = response.data.content
+            })
+         .catch(showError)
       }
     },
     mounted() {
@@ -102,6 +131,8 @@ export default {
         this.loadEmployee()
       } 
       this.$refs.name.focus()
+      this.fetchPositions()
+      this.fetchCompanies()
     }
 }
 </script>
