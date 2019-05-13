@@ -1,11 +1,6 @@
 <template>
    <div>
-    <h3 class="title">Cadastro de Colaboradores</h3>
-        <div class="btn-new">
-            <router-link :to="{name: 'employeeForm', params: { id: 0 }}" class="btn btn-primary">
-                <i class="fa fa-file"><span class="text-font">&nbsp;&nbsp;Novo</span></i>
-            </router-link>
-        </div>
+    <h3 class="title">Lançamento de horas - Selecionar colaborador</h3>
     <br>
     <div class="box box-default">
          <div class="box-header with-border">
@@ -44,16 +39,11 @@
          <div class="box-body table-responsive">
             <b-table responsive striped bordered :items="employees" :fields="fields" 
                show-empty empty-text="Dados não encontrados">
-               <template slot="edit" slot-scope="data">
+               <template slot="select" slot-scope="data">
                   <div class="text-center-align">
                      <router-link :to="{name: 'employeeForm', params: { id: data.item.id }}" class="mr-2 btn btn-primary">
-                        <i class="fa fa-pencil"></i>
+                        <i class="fa fa-check"></i>
                      </router-link>
-                  </div>
-               </template>
-               <template slot="delete" slot-scope="data">
-                  <div class="text-center-align">
-                     <b-button class="mr-2 btn btn-default" @click="openDeleteModal(data.item)"><i class="fa fa-remove"></i></b-button>
                   </div>
                </template>
                <template slot="empty" slot-scope="scope">
@@ -74,7 +64,7 @@ import { baseApiUrl, showError } from '@/global'
 import NProgress from 'nprogress'
 
 export default {
-    name: 'employeeIndex',
+    name: 'employeeSearch',
     data() {
         return {
             employees: [],
@@ -92,8 +82,7 @@ export default {
                 { key: 'status', label: 'Situação', sortable: true,
                     formatter: value => value === 'ACTIVE' ? 'Ativo' : 'Inativo',
                     thStyle: 'width: 20%' },
-                { key: 'edit', label: 'Editar', thStyle: 'text-align: center; width: 5%' },
-                { key: 'delete', label: 'Excluir', thStyle: 'text-align: center; width: 5%' }
+                { key: 'select', label: 'Selecionar', thStyle: 'text-align: center; width: 5%' },
             ],
         }
     },
@@ -129,36 +118,7 @@ export default {
                url = url + `&status=${this.employeeSearch.status}`
             }
             return url
-        },
-        remove(item) {
-            NProgress.start()
-            const id = item.id
-            axios.delete(`${baseApiUrl}/employees/${id}`)
-                .then(() => {
-                    this.$toasted.global.defaultSuccess()
-                    this.fetch()
-                })
-                .catch(showError)
-            NProgress.done()
-        },
-        openDeleteModal(item) {
-            this.$bus.$emit('modal-open', {
-            title: 'Exclusão',
-            description: 'Deseja realmente excluir este registro?',
-            type: 'modal-primary',
-            confirmText: 'Confirmar',
-            cancelText: 'Cancelar',
-            confirmBefore: ()=> {
-               this.remove(item)
-            },
-            confirmAfter: () => {
-               
-            },
-            cancelBefore: () => {},
-            cancelAfter: () => {},
-            clickOverlay: () => {}
-            })
-        },
+        }
     },
     mounted() {
         this.search()

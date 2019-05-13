@@ -1,10 +1,10 @@
 <template>
    <div>
-      <h3 class="name">Cadastro de Colaboradores</h3>
+      <h3 class="title">Cadastro de Colaboradores</h3>
       <br>
       <div class="box box-default">
          <div class="box-header with-border">
-            <h3 class="box-name" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Cadastro</h3>
+            <h3 class="box-title" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Cadastro</h3>
          </div>
          <div>
             <p></p><b>&nbsp;&nbsp;(*)</b>&nbsp;Preenchimento obrigatório<p></p>

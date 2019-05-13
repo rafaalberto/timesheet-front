@@ -11,6 +11,7 @@ import PositionIndex from '@/components/admin/PositionIndex'
 import PositionForm from '@/components/admin/PositionForm'
 import EmployeeIndex from '@/components/admin/EmployeeIndex'
 import EmployeeForm from '@/components/admin/EmployeeForm'
+import EmployeeSearch from '@/components/admin/EmployeeSearch'
 import TimesheetForm from '@/components/admin/TimesheetForm'
 import Auth from '@/components/auth/Auth'
 
@@ -62,6 +63,11 @@ const routes = [{
     name: 'employeeForm',
     path: '/employee/:id',
     component: EmployeeForm
+},
+{
+    name: 'employeeSearch',
+    path: '/employeeSearch',
+    component: EmployeeSearch
 },
 {
     name: 'timesheetForm',

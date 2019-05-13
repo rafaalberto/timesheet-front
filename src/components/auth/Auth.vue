@@ -1,7 +1,7 @@
 <template>
    <div class="login-box">
       <div class="login-logo">
-         <a href="#"><b>Admin</b> Web</a>
+         <a href="#"><b>Ponto</b> Web</a>
       </div>
       <div class="login-box-body">
          <p class="login-box-msg">Informe usuário e senha para acesso</p>
