@@ -52,7 +52,7 @@
                show-empty empty-text="Dados não encontrados">
                <template slot="select" slot-scope="data">
                   <div class="text-center-align">
-                     <router-link :to="{name: 'employeeForm', params: { id: data.item.id }}" class="mr-2 btn btn-primary">
+                     <router-link :to="{name: 'timesheetGroup', params: { id: data.item.id }}" class="mr-2 btn btn-primary">
                         <i class="fa fa-check"></i>
                      </router-link>
                   </div>
@@ -138,7 +138,6 @@ export default {
             if(this.employeeSearch.status !== undefined && this.employeeSearch.status !== "") {
                url = url + `&status=${this.employeeSearch.status}`
             }
-            console.log(url)
             return url
         },
         fetchCompanies() {

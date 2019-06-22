@@ -111,8 +111,16 @@ import moment from 'moment'
 import NProgress from 'nprogress'
 export default {
     name: 'TimesheetForm',
+    props: {
+          employee: String,
+          year: String,
+          month: String
+    },
     data() {
         return {
+           employeeParam: this.$route.params.employee,
+           yearParam: this.$route.params.year,
+           monthParam: this.$route.params.month,
            timesheet: {},
            timesheets: [],
            reports: [],
@@ -144,8 +152,8 @@ export default {
         }
     },
     methods: {
-      fetch() {
-         const url = `${baseApiUrl}/timesheet/daily`
+      fetchDaily() {
+         const url = `${baseApiUrl}/timesheet/daily/${this.employeeParam}/${this.yearParam}/${this.monthParam}`
          axios.get(url)
             .then(response => {
                this.timesheets = response.data
@@ -153,7 +161,7 @@ export default {
             .catch(showError)
       },
       fetchReport() {
-         const url = `${baseApiUrl}/timesheet/docket`
+         const url = `${baseApiUrl}/timesheet/docket/${this.employeeParam}/${this.yearParam}/${this.monthParam}`
          axios.get(url)
             .then(response => {
                this.reports = response.data
@@ -162,6 +170,9 @@ export default {
       },
       save() {
          this.setDateTime()
+         this.timesheet.employeeId = this.employeeParam,
+         this.timesheet.yearReference = this.yearParam,
+         this.timesheet.monthReference = this.monthParam,
          this.lunchStart = this.fetchDateTime(this.lunchStart, this.timeIn)
          this.lunchEnd = this.fetchDateTime(this.lunchEnd, this.lunchStart)
          this.timeOut = this.fetchDateTime(this.timeOut, this.lunchEnd)
@@ -192,7 +203,7 @@ export default {
             .then(() => {
                this.$toasted.global.defaultSuccess()
                this.reset()
-               this.fetch()
+               this.fetchDaily()
                this.fetchReport()   
             }).catch(showError)
       },
@@ -252,7 +263,7 @@ export default {
         },
     },
     mounted() { 
-      this.fetch()
+      this.fetchDaily()
       this.fetchReport()
       this.$refs.date.focus()
     }
