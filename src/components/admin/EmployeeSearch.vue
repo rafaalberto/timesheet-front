@@ -15,6 +15,17 @@
                   <input type="text" id="name" class="form-control" v-model="employeeSearch.name" ref="name">
                </div>
                <div class="col-md-3">
+                  <label for="recordNumber">Registro</label>
+                  <input type="text" id="recordNumber" class="form-control" v-model="employeeSearch.recordNumber">
+               </div>
+               <div class="col-md-3">
+                  <label for="company">Empresa</label>
+                  <select class="form-control" id="company" v-model="employeeSearch.company">
+                     <option value="">Todos</option>
+                     <option :value="company.id" v-for="company in companies" :key="company.id">{{ company.name }}</option>
+                  </select>
+               </div>
+               <div class="col-md-3">
                   <label for="profile">Situação</label>
                   <select class="form-control" id="status" v-model="employeeSearch.status">
                      <option value="">Todos</option>
@@ -68,20 +79,24 @@ export default {
     data() {
         return {
             employees: [],
+            companies: [],
             employeeSearch: {
                document: '',
-               status: 'ACTIVE'
+               recordNumber: '',
+               company: '',
+               status: 'ACTIVE',
             },
             currentPage: 1,
             size: 10,
             totalElements: 0,
             fields: [
-                { key: 'id', label: 'ID', sortable: true, thStyle: 'width: 15%' },
+                { key: 'id', label: 'ID', sortable: true, thStyle: 'width: 10%' },
                 { key: 'name', label: 'Name', sortable: true, thStyle: 'width: 35%' },
-                { key: 'recordNumber', label: 'Nº Registro', sortable: true, thStyle: 'width: 20%' },
+                { key: 'recordNumber', label: 'Registro', sortable: true, thStyle: 'width: 15%' },
+                { key: 'company.name', label: 'Empresa', sortable: true, thStyle: 'width: 25%' },
                 { key: 'status', label: 'Situação', sortable: true,
                     formatter: value => value === 'ACTIVE' ? 'Ativo' : 'Inativo',
-                    thStyle: 'width: 20%' },
+                    thStyle: 'width: 10%' },
                 { key: 'select', label: 'Selecionar', thStyle: 'text-align: center; width: 5%' },
             ],
         }
@@ -114,15 +129,31 @@ export default {
             if(this.employeeSearch.name !== undefined && this.employeeSearch.name.trim() !== "") {
                url = url + `&name=${this.employeeSearch.name.trim()}`
             }
+            if(this.employeeSearch.recordNumber !== undefined && this.employeeSearch.recordNumber !== "") {
+               url = url + `&recordNumber=${this.employeeSearch.recordNumber}`
+            }
+            if(this.employeeSearch.company !== undefined && this.employeeSearch.company !== "") {
+               url = url + `&companyId=${this.employeeSearch.company}`
+            }
             if(this.employeeSearch.status !== undefined && this.employeeSearch.status !== "") {
                url = url + `&status=${this.employeeSearch.status}`
             }
+            console.log(url)
             return url
+        },
+        fetchCompanies() {
+            const url = `${baseApiUrl}/companies`
+            axios.get(url)
+               .then(response => {
+                  this.companies = response.data.content
+               })
+            .catch(showError)
         }
     },
     mounted() {
         this.search()
         this.$refs.name.focus()
+        this.fetchCompanies()
     },
     watch: {
         currentPage() {

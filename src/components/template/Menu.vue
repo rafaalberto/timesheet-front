@@ -33,7 +33,7 @@ export default {
             this.$router.push({ path: '/employee' })
         },
         timesheet() {
-            this.$router.push({ path: '/timesheet' })
+            this.$router.push({ path: '/employeeSearch' })
         }
     }
 }
