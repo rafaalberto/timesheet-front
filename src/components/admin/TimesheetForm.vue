@@ -4,10 +4,25 @@
         <br>
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Cadastro</h3>
+                <h3 class="box-title" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Lançamento</h3>
             </div>
             <form class="form-horizontal">
                 <div class="box-body">
+                    <div class="row">
+                        <label class="col-xs-1 control-label" for="employee">Colaborador</label>
+                        <div class="col-xs-5">
+                            <input type="text" class="form-control" id="employee" name="employee" v-model="employee.name" readonly>
+                        </div>
+                        <label class="col-xs-1 control-label" for="recordNumber">Registro</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="recordNumber" name="recordNumber" v-model="employee.recordNumber" readonly>
+                        </div>
+                        <label class="col-xs-1 control-label" for="period">Período</label>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" id="period" name="period" v-model="period" readonly>
+                        </div>
+                    </div>
+                    <br>
                     <div class="row">
                         <label class="col-xs-1 control-label" for="date">Data</label>
                         <div class="col-xs-2">
@@ -91,6 +106,24 @@
                     </div>
                     <div class="tab-pane" id="timeline">
                        <div class="box-body table-responsive">
+                            <table aria-busy="false" aria-colcount="4" class="table b-table table-striped table-bordered">
+                                <thead class>
+                                    <tr>
+                                        <td style="text-align: 25%"><b>Valor hora</b></td>
+                                        <td style="text-align: 25%"><b>100%</b></td>
+                                        <td style="text-align: 25%"><b>50%</b></td>
+                                        <td style="text-align: 25%"><b>20%</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{employee.costHourFormatted}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table><br>
                             <b-table responsive striped bordered :items="reports" :fields="fieldsReport">
                                 <template slot="hoursWorked" slot-scope="data">
                                     <div class="text-center-align">{{data.item.hoursWorked}}</div>
@@ -112,18 +145,20 @@ import NProgress from 'nprogress'
 export default {
     name: 'TimesheetForm',
     props: {
-          employee: String,
+          employeeId: String,
           year: String,
           month: String
     },
     data() {
         return {
-           employeeParam: this.$route.params.employee,
+           employeeParam: this.$route.params.employeeId,
            yearParam: this.$route.params.year,
            monthParam: this.$route.params.month,
            timesheet: {},
+           employee: {},
            timesheets: [],
            reports: [],
+           period: this.$route.params.month + '/' + this.$route.params.year,
            date: {},
            type: 'REGULAR',
            timeIn: {},
@@ -165,6 +200,14 @@ export default {
          axios.get(url)
             .then(response => {
                this.reports = response.data
+            })
+            .catch(showError)
+      },
+      fetchEmployee() {
+         const url = `${baseApiUrl}/employees/${this.employeeParam}`
+         axios.get(url)
+            .then(response => {
+               this.employee = response.data
             })
             .catch(showError)
       },
@@ -265,6 +308,7 @@ export default {
     mounted() { 
       this.fetchDaily()
       this.fetchReport()
+      this.fetchEmployee()
       this.$refs.date.focus()
     }
 }
