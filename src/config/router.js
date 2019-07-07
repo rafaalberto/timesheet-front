@@ -13,7 +13,7 @@ import EmployeeIndex from '@/components/admin/EmployeeIndex'
 import EmployeeForm from '@/components/admin/EmployeeForm'
 import EmployeeSearch from '@/components/admin/EmployeeSearch'
 import TimesheetGroup from '@/components/admin/TimesheetGroup'
-import TimesheetForm from '@/components/admin/TimesheetForm'
+import TimesheetDaily from '@/components/admin/TimesheetDaily'
 import Auth from '@/components/auth/Auth'
 
 import { userKey } from '@/global'
@@ -76,9 +76,9 @@ const routes = [{
     component: TimesheetGroup
 },
 {
-    name: 'timesheetForm',
+    name: 'timesheetDaily',
     path: '/timesheet/:employeeId/:year/:month',
-    component: TimesheetForm
+    component: TimesheetDaily
 },
 {
     name: 'auth',
