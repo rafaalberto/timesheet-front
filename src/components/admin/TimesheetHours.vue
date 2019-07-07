@@ -1,64 +1,51 @@
 <template>
     <div>
-        <div class="box box-default">
-            <div class="box-header with-border">
-                <h3 class="box-title" style="color: gray;"><i class="fa fa-edit"></i> &nbsp;Lançamento</h3>
-            </div>
+        <div class="box-body">
+            <h3 class="box-title gray-color">
+               <i class="fa fa-table"></i> &nbsp;Lançamento de Horas
+            </h3>
+            <br><br>
             <form class="form-horizontal">
-                <div class="box-body">
-                    <div class="row">
-                        <label class="col-xs-1 control-label" for="employee">Colaborador</label>
-                        <div class="col-xs-5">
-                            <input type="text" class="form-control" id="employee" name="employee" v-model="employee.name" readonly>
-                        </div>
-                        <label class="col-xs-1 control-label" for="recordNumber">Registro</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="recordNumber" name="recordNumber" v-model="employee.recordNumber" readonly>
-                        </div>
-                        <label class="col-xs-1 control-label" for="period">Período</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="period" name="period" v-model="period" readonly>
-                        </div>
+                <div class="row">
+                    <label class="col-xs-1 control-label" for="dayOfMonth">Dia</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="dayOfMonth" id="dayOfMonth" v-model="dayOfMonth" ref="dayOfMonth">
+                            <option v-for="day in days" :key="day">{{ day }}</option>
+                        </select>
                     </div>
-                    <br>
-                    <div class="row">
-                        <label class="col-xs-1 control-label" for="date">Data</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="date" name="date" v-model="date" ref="date" v-mask="'##/##/####'">
-                        </div>
-                        <label class="col-xs-1 control-label" for="type">Tipo</label>
-                        <div class="col-xs-2">
-                            <select class="form-control" name="type" id="type" v-model="type">
-                                <option value="REGULAR">Normal</option>
-                                <option value="DAY_OFF">Folga</option>
-                                <option value="HOLIDAY">Feriado</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <label class="col-xs-1 control-label" for="timeIn">Hr Inicial</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="timeIn" name="timeIn" v-model="timeIn" v-mask="'##:##'">
-                        </div>
-                        <label class="col-xs-1 control-label" for="lunchStart">Hr Final</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="lunchStart" name="lunchStart" v-model="lunchStart" v-mask="'##:##'">
-                        </div>
-                        <label class="col-xs-1 control-label" for="lunchEnd">Hr Inicial</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="lunchEnd" name="lunchEnd" v-model="lunchEnd" v-mask="'##:##'">
-                        </div>
-                        <label class="col-xs-1 control-label" for="timeOut">Hr Final</label>
-                        <div class="col-xs-2">
-                            <input type="text" class="form-control" id="timeOut" name="timeOut" v-model="timeOut" v-mask="'##:##'">
-                        </div>
+                    <label class="col-xs-1 control-label" for="type">Tipo</label>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="type" id="type" v-model="type">
+                            <option value="REGULAR">Normal</option>
+                            <option value="DAY_OFF">Folga</option>
+                            <option value="HOLIDAY">Feriado</option>
+                        </select>
                     </div>
                 </div>
-                <div class="box-footer">
-                    <div class="col-sm-9 col-sm-offset-2">
-                        <button type="submit" class="btn btn-primary" @click.prevent="save"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;Salvar</button>&nbsp;
-                        <button type="button" class="btn btn-default" @click.prevent="back"><i class="fa fa-mail-reply" aria-hidden="true"></i>&nbsp;Voltar</button>
+                <br>
+                <div class="row">
+                    <label class="col-xs-1 control-label" for="timeIn">Hr Inicial</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="timeIn" name="timeIn" v-model="timeIn" v-mask="'##:##'">
+                    </div>
+                    <label class="col-xs-1 control-label" for="lunchStart">Hr Final</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="lunchStart" name="lunchStart" v-model="lunchStart" v-mask="'##:##'">
+                    </div>
+                    <label class="col-xs-1 control-label" for="lunchEnd">Hr Inicial</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="lunchEnd" name="lunchEnd" v-model="lunchEnd" v-mask="'##:##'">
+                    </div>
+                    <label class="col-xs-1 control-label" for="timeOut">Hr Final</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="timeOut" name="timeOut" v-model="timeOut" v-mask="'##:##'">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <label class="col-xs-1 control-label"></label>
+                    <div class="col-xs-2">
+                        <button type="submit" class="btn btn-primary" @click.prevent="save"><i class="fa fa-save" aria-hidden="true"></i>&nbsp;&nbsp;Salvar</button>&nbsp;
                     </div>
                 </div>
             </form>
@@ -110,14 +97,11 @@
         },
         data() {
             return {
-                employeeParam: this.$route.params.employeeId,
-                yearParam: this.$route.params.year,
-                monthParam: this.$route.params.month,
                 timesheet: {},
-                employee: {},
                 timesheets: [],
-                period: this.$route.params.month + '/' + this.$route.params.year,
+                dayOfMonth: 1,
                 date: {},
+                days: [],
                 type: 'REGULAR',
                 timeIn: {},
                 lunchStart: {},
@@ -171,21 +155,49 @@
             }
         },
         methods: {
-            fetchDaily() {
-                const url = `${baseApiUrl}/timesheet/daily/${this.employeeParam}/${this.yearParam}/${this.monthParam}`
-                axios.get(url).then(response => this.timesheets = response.data)
-                .catch(showError)
+            fetchDays() {
+                const { yearParam } = this.year
+                const { monthParam } = this.month
+
+                let monthWith30Days = ['4', '6', '9', '11']
+                let monthWith31Days = ['1', '3', '5', '7', '8', '10', '12']
+                let quantityDaysOfMonth = 30
+
+                if (monthWith31Days.includes(monthParam)) {
+                    quantityDaysOfMonth = 31
+                } else if(monthWith30Days.includes(monthParam)) {
+                    quantityDaysOfMonth = 30
+                } else {
+                    let isLeap = new Date(yearParam, 1, 29).getDate()
+                    if (isLeap === 29) {
+                        quantityDaysOfMonth = 29
+                    } else {
+                        quantityDaysOfMonth = 28
+                    }
+                }
+
+                for(let day = 1; day <= quantityDaysOfMonth; day ++) {
+                    this.days.push(day)
+                }
             },
-            fetchEmployee() {
-                const url = `${baseApiUrl}/employees/${this.employeeParam}`
-                axios.get(url).then(response => this.employee = response.data)
+            fetchDaily() {
+                const { employeeParam } = this.employeeId
+                const { yearParam } = this.year
+                const { monthParam } = this.month
+  
+                const url = `${baseApiUrl}/timesheet/daily/${employeeParam}/${yearParam}/${monthParam}`
+                axios.get(url).then(response => this.timesheets = response.data)
                 .catch(showError)
             },
             save() {
                 this.setDateTime()
-                this.timesheet.employeeId = this.employeeParam,
-                this.timesheet.yearReference = this.yearParam,
-                this.timesheet.monthReference = this.monthParam,
+                const { employeeParam } = this.employeeId
+                const { yearParam } = this.year
+                const { monthParam } = this.month
+
+                this.timesheet.employeeId = employeeParam,
+                this.timesheet.yearReference = yearParam,
+                this.timesheet.monthReference = monthParam,
                 this.lunchStart = this.fetchDateTime(this.lunchStart, this.timeIn)
                 this.lunchEnd = this.fetchDateTime(this.lunchEnd, this.lunchStart)
                 this.timeOut = this.fetchDateTime(this.timeOut, this.lunchEnd)
@@ -219,10 +231,11 @@
                         this.fetchDaily()
                     }).catch(showError)
                 },
-            back() {
-                this.$router.push({ path: '/' })
-            },
             setDateTime() {
+                const { yearParam } = this.year
+                const { monthParam } = this.month
+
+                this.date = this.dayOfMonth + '/' + monthParam + '/' + yearParam
                 const split = this.date.split('/')
                 this.date = `${split[2]}/${split[1]}/${split[0]}`
                 this.timeIn = new Date(`${this.date} ${this.timeIn}`)
@@ -237,11 +250,12 @@
             reset() {
                 this.type = 'REGULAR',
                 this.date = {},
+                this.dayOfMonth = 1,
                 this.timeIn = {},
                 this.lunchStart = {},
                 this.lunchEnd = {},
                 this.timeOut = {},
-                this.$refs.date.focus()
+                this.$refs.dayOfMonth.focus()
             },
             remove(item) {
                 NProgress.start()
@@ -249,12 +263,12 @@
                 axios.delete(`${baseApiUrl}/timesheet/${id}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                    this.fetch()
-                    this.fetchReport()
+                    this.reset()
+                    this.fetchDaily()
                 })
                 .catch(showError)
                     NProgress.done()
-                },
+            },
             openDeleteModal(item) {
                 this.$bus.$emit('modal-open', {
                     title: 'Exclusão',
@@ -273,9 +287,9 @@
             },
         },
         mounted() {
+            this.fetchDays()
             this.fetchDaily()
-            this.fetchEmployee()
-            this.$refs.date.focus()
+            this.$refs.dayOfMonth.focus()
         }
     }
 </script>

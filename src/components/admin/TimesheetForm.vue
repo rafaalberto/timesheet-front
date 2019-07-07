@@ -1,7 +1,38 @@
 <template>
     <div>
         <h3 class="title">Lançamentos</h3>
-        <br>
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="color: gray;"><i class="fa fa-user"></i> &nbsp;Colaborador</h3>
+            </div>
+            <div class="form-horizontal box-body">
+                <div class="row">
+                    <label class="col-xs-1 control-label" for="employee">Colaborador</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control" id="employee" name="employee" v-model="employee.name" readonly>
+                    </div>
+                    <label class="col-xs-1 control-label" for="recordNumber">Registro</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="recordNumber" name="recordNumber" v-model="employee.recordNumber" readonly>
+                    </div>
+                    <label class="col-xs-1 control-label" for="period">Referência</label>
+                    <div class="col-xs-2">
+                        <input type="text" class="form-control" id="period" name="period" v-model="period" readonly>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <label class="col-xs-1 control-label" for="company">Empresa</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control" id="company" name="company" v-model="employee.company.name" readonly>
+                    </div>
+                    <label class="col-xs-1 control-label" for="position">Cargo</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control" id="position" name="position" v-model="employee.position.title" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="box box-default">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
@@ -26,6 +57,8 @@
 </template>
 
 <script>
+    import axios from 'axios'
+    import { baseApiUrl, showError} from '@/global'
     import TimesheetHours from '@/components/admin/TimesheetHours'
     import TimesheetBonus from '@/components/admin/TimesheetBonus'
     import TimesheetReport from '@/components/admin/TimesheetReport'
@@ -33,16 +66,37 @@
         name: 'TimesheetForm',
         components: { TimesheetHours, TimesheetBonus, TimesheetReport },
         props: {
-            employeeId: String,
-            year: String,
-            month: String
+            employeeId: Object,
+            year: Object,
+            month: Object
         },
         data() {
             return {
                 employeeParam: this.$route.params.employeeId,
                 yearParam: this.$route.params.year,
                 monthParam: this.$route.params.month,
+                period: {},
+                employee: {
+                    company: {},
+                    position: {}
+                }
             }
+        },
+        methods: {
+            fetchEmployee() {
+                const url = `${baseApiUrl}/employees/${this.employeeParam}`
+                axios.get(url).then(response => this.employee = response.data)
+                .catch(showError)
+            },
+            fetchPeriod() {
+                const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+                this.period = monthNames[this.$route.params.month - 1] + '/' + this.$route.params.year
+            }
+        },
+        mounted() {
+            this.fetchEmployee()
+            this.fetchPeriod()
         }
     }
 </script>

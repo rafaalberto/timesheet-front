@@ -1,5 +1,5 @@
 <template>
-    <h2>Bonus Form</h2>                
+    <h2>Bonificações</h2>
 </template>
 
 <script>

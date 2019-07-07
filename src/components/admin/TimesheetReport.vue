@@ -1,6 +1,6 @@
 <template>
     <div class="box-body table-responsive">
-        <table aria-busy="false" aria-colcount="4" class="table b-table table-striped table-bordered">
+        <!-- <table aria-busy="false" aria-colcount="4" class="table b-table table-striped table-bordered">
             <thead class>
                 <tr>
                     <td style="text-align: 25%"><b>Valor hora</b></td>
@@ -17,8 +17,8 @@
                     <td></td>
                 </tr>
             </tbody>
-        </table>
-        <br>
+        </table> -->
+        <!-- <br> -->
         <b-table responsive striped bordered :items="reports" :fields="fieldsReport">
             <template slot="hoursWorked" slot-scope="data">
                 <div class="text-center-align">{{data.item.hoursWorked}}</div>
