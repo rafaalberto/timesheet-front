@@ -84,6 +84,7 @@
 </template>
 
 <script>
+    import eventBus from '@/eventBus'
     import axios from 'axios'
     import { baseApiUrl, showError } from '@/global'
     import moment from 'moment'
@@ -188,6 +189,8 @@
                 const url = `${baseApiUrl}/timesheet/daily/${employeeParam}/${yearParam}/${monthParam}`
                 axios.get(url).then(response => this.timesheets = response.data)
                 .catch(showError)
+
+                eventBus.$emit('dataChanged')
             },
             save() {
                 this.setDateTime()

@@ -20,14 +20,12 @@
         </table> -->
         <!-- <br> -->
         <b-table responsive striped bordered :items="reports" :fields="fieldsReport">
-            <template slot="hoursWorked" slot-scope="data">
-                <div class="text-center-align">{{data.item.hoursWorked}}</div>
-            </template>
         </b-table>
     </div>                
 </template>
 
 <script>
+    import eventBus from '@/eventBus'
     import axios from 'axios'
     import { baseApiUrl, showError} from '@/global'
     export default {
@@ -70,6 +68,9 @@
                 .then(response => this.reports = response.data)
                 .catch(showError)
             }
+        },
+        created() {
+            eventBus.$on('dataChanged', () => this.fetchReport())
         },
         mounted() {
             this.fetchReport()
