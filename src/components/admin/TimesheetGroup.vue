@@ -39,7 +39,7 @@
                </div>
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="month">Mês<b class="required-field"> *</b></label>
-                  <div class="col-sm-1">
+                  <div class="col-sm-2">
                      <select class="form-control" id="month" v-model="month" ref="month">
                         <option v-for="month in months" :key="month">{{ month }}</option>
                      </select>
