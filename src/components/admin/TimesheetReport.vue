@@ -51,7 +51,7 @@
                     label: 'Total horas',
                     thStyle: 'width: 20%'
                 }, {
-                    key: 'totalCost',
+                    key: 'totalCostFormatted',
                     label: 'Total custo',
                     thStyle: 'width: 20%'
                 }, ]
