@@ -42,7 +42,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="hours">
-                        <TimesheetHours :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" />
+                        <TimesheetHours :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" :costHour="{costHourParam}" />
                     </div>
                     <div class="tab-pane" id="bonus">
                         <TimesheetBonus :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" />
@@ -75,6 +75,7 @@
                 employeeParam: this.$route.params.employeeId,
                 yearParam: this.$route.params.year,
                 monthParam: this.$route.params.month,
+                costHourParam: 0,
                 period: {},
                 employee: {
                     company: {},
@@ -85,7 +86,10 @@
         methods: {
             fetchEmployee() {
                 const url = `${baseApiUrl}/employees/${this.employeeParam}`
-                axios.get(url).then(response => this.employee = response.data)
+                axios.get(url).then(response => {
+                    this.employee = response.data
+                    this.costHourParam = this.employee.costHour
+                })
                 .catch(showError)
             },
             fetchPeriod() {

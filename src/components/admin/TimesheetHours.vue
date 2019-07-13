@@ -94,7 +94,8 @@
         props: {
             employeeId: Object,
             year: Object,
-            month: Object
+            month: Object,
+            costHour: Object,
         },
         data() {
             return {
@@ -185,7 +186,7 @@
                 const { employeeParam } = this.employeeId
                 const { yearParam } = this.year
                 const { monthParam } = this.month
-  
+
                 const url = `${baseApiUrl}/timesheet/daily/${employeeParam}/${yearParam}/${monthParam}`
                 axios.get(url).then(response => this.timesheets = response.data)
                 .catch(showError)
@@ -197,10 +198,12 @@
                 const { employeeParam } = this.employeeId
                 const { yearParam } = this.year
                 const { monthParam } = this.month
-
-                this.timesheet.employeeId = employeeParam,
-                this.timesheet.yearReference = yearParam,
-                this.timesheet.monthReference = monthParam,
+                const { costHourParam } = this.costHour
+                
+                this.timesheet.employeeId = employeeParam
+                this.timesheet.yearReference = yearParam
+                this.timesheet.monthReference = monthParam
+                
                 this.lunchStart = this.fetchDateTime(this.lunchStart, this.timeIn)
                 this.lunchEnd = this.fetchDateTime(this.lunchEnd, this.lunchStart)
                 this.timeOut = this.fetchDateTime(this.timeOut, this.lunchEnd)
@@ -210,6 +213,7 @@
 
                 this.timesheet.hoursJourney = '07:20'
                 this.timesheet.sumula90 = '01:00'
+                this.timesheet.costHour = costHourParam
 
                 if (this.timesheet.type === 'REGULAR' || this.timesheet.type === 'HOLIDAY') {
                     this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)

@@ -1,6 +1,6 @@
 <template>
     <div class="box-body table-responsive">
-        <!-- <table aria-busy="false" aria-colcount="4" class="table b-table table-striped table-bordered">
+        <table aria-busy="false" aria-colcount="4" class="table b-table table-striped table-bordered">
             <thead class>
                 <tr>
                     <td style="text-align: 25%"><b>Valor hora</b></td>
@@ -11,15 +11,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ report.regularPriceFormatted }}</td>
+                    <td>{{ report.hundredPercentFormatted }}</td>
+                    <td>{{ report.fiftyPercentFormatted }}</td>
+                    <td>{{ report.twentyPercentFormatted }}</td>
                 </tr>
             </tbody>
-        </table> -->
-        <!-- <br> -->
-        <b-table responsive striped bordered :items="reports" :fields="fieldsReport">
+        </table>
+        <br>
+        <b-table responsive striped bordered :items="report.items" :fields="fieldsReport">
         </b-table>
     </div>                
 </template>
@@ -37,7 +37,9 @@
         },
         data() {
             return {
-                reports: [],
+                report: {
+                    items: []
+                },
                 fieldsReport: [{
                     key: 'typeCode',
                     label: 'Código',
@@ -65,7 +67,7 @@
   
                 const url = `${baseApiUrl}/timesheet/docket/${employeeParam}/${yearParam}/${monthParam}`
                 axios.get(url)
-                .then(response => this.reports = response.data)
+                .then(response => this.report = response.data)
                 .catch(showError)
             }
         },
