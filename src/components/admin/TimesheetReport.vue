@@ -21,6 +21,7 @@
         <br>
         <b-table responsive striped bordered :items="report.items" :fields="fieldsReport">
         </b-table>
+        <div class="total-label">Total de vencimentos brutos:&nbsp;&nbsp; <b>{{ report.totalFormatted }}</b></div>
     </div>                
 </template>
 
@@ -80,4 +81,8 @@
     }
 </script>
 
-<style></style>
+<style>
+    .total-label {
+        font-size: 16px;
+    }
+</style>
