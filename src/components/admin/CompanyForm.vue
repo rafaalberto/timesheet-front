@@ -20,13 +20,13 @@
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="document">CNPJ<b class="required-field"> *</b></label>
                   <div class="col-sm-3">
-                     <input type="text" class="form-control" id="document" name="document" v-model="company.document" ref="document">
+                     <input type="text" class="form-control" id="document" name="document" v-model="company.document" v-mask="'##.###.###/####-##'" maxlength="18" ref="document">
                   </div>
                </div>
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="name">Nome<b class="required-field"> *</b></label>
                   <div class="col-sm-5">
-                     <input type="text" class="form-control" id="name" name="name" v-model="company.name">
+                     <input type="text" class="form-control" id="name" name="name" v-model="company.name" maxlength="50">
                   </div>
                </div>
             </div>
@@ -86,4 +86,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+   input {
+      text-transform: uppercase;
+   }
+</style>
