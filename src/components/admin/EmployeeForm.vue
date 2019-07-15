@@ -20,25 +20,25 @@
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="name">Nome<b class="required-field"> *</b></label>
                   <div class="col-sm-5">
-                     <input type="text" class="form-control" id="name" name="name" v-model="employee.name" ref="name">
+                     <input type="text" class="form-control" id="name" name="name" v-model="employee.name" maxlength="50" ref="name">
                   </div>
                </div>
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="recordNumber">Nº Registro<b class="required-field"> *</b></label>
                   <div class="col-sm-3">
-                     <input type="text" class="form-control" id="recordNumber" name="recordNumber" v-model="employee.recordNumber">
+                     <input type="text" class="form-control" id="recordNumber" name="recordNumber" v-model="employee.recordNumber" maxlength="10" v-mask="'##########'">
                   </div>
                </div>
                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="costCenter">Centro de Custo<b class="required-field"> *</b></label>
+                  <label class="col-sm-2 control-label" for="costCenter">Centro de Custo</b></label>
                   <div class="col-sm-3">
-                     <input type="text" class="form-control" id="costCenter" name="costCenter" v-model="employee.costCenter">
+                     <input type="text" class="form-control" id="costCenter" name="costCenter" v-model="employee.costCenter" maxlength="20" v-mask="'####################'">
                   </div>
                </div>
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="costHour">Valor hora<b class="required-field"> *</b></label>
-                  <div class="col-sm-3">
-                     <input type="text" class="form-control" id="costHour" name="costHour" v-model="employee.costHour">
+                  <div class="col-sm-2">
+                     <money class="form-control" id="costHour" name="costHour" v-bind="money" v-model="employee.costHour"></money>
                   </div>
                </div>
                <div class="form-group">
@@ -51,7 +51,7 @@
                </div>
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="company">Empresa<b class="required-field"> *</b></label>
-                  <div class="col-sm-3">
+                  <div class="col-sm-5">
                      <select class="form-control" name="company" id="company" v-model="employee.company.id">
                         <option :value="company.id" v-for="company in companies" :key="company.id">{{ company.name }}</option>
                      </select>
@@ -59,7 +59,7 @@
                </div>
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="status">Situação<b class="required-field"> *</b></label>
-                  <div class="col-sm-3">
+                  <div class="col-sm-2">
                      <select class="form-control" name="status" id="status" v-model="employee.status">
                         <option value="ACTIVE">Ativo</option>
                         <option value="INACTIVE">Inativo</option>
@@ -81,6 +81,7 @@
 <script>
 import axios from 'axios'
 import { baseApiUrl, showError } from '@/global'
+
 export default {
     name: 'employeeForm',
     props: {
@@ -95,7 +96,13 @@ export default {
             },
             employeeId: this.$route.params.id,
             positions: [],
-            companies: []
+            companies: [],
+            money: {
+               decimal: ',',
+               thousands: '.',
+               precision: 2,
+               masked: false
+            },
         }
     },
     methods: {
@@ -147,4 +154,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+   input {
+      text-transform: uppercase;
+   }
+</style>

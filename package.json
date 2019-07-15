@@ -13,6 +13,7 @@
     "global": "^4.3.2",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
+    "v-money": "^0.8.1",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2",
     "vue-the-mask": "^0.11.1",

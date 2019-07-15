@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import money from 'v-money'
 
 Vue.use(Vuex)
+Vue.use(money)
 
 export default new Vuex.Store({
     state: {

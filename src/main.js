@@ -8,10 +8,12 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import NProgress from 'nprogress'
 import VueTheMask from 'vue-the-mask'
+import money from 'v-money'
 
 Vue.use(BootstrapVue)
 Vue.use(NProgress)
 Vue.use(VueTheMask)
+Vue.use(money)
 
 import './config/messages'
 import router from './config/router'
