@@ -20,7 +20,7 @@
                <div class="form-group">
                   <label class="col-sm-2 control-label" for="title">Título<b class="required-field"> *</b></label>
                   <div class="col-sm-5">
-                     <input type="text" class="form-control" id="title" title="title" v-model="position.title" ref="title">
+                     <input type="text" class="form-control" id="title" title="title" v-model="position.title" maxlength="50" ref="title">
                   </div>
                </div>
             </div>
@@ -80,4 +80,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+   input {
+      text-transform: uppercase;
+   }
+</style>
