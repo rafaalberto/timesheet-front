@@ -9,15 +9,15 @@
                 <div class="row">
                     <label class="col-xs-1 control-label" for="code">Código</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control" id="code" name="code" v-model="bonus.code" ref="code">
+                        <input type="text" class="form-control" id="code" name="code" v-model="bonus.code" maxlength="5" v-mask="'#####'" ref="code">
                     </div>
                     <label class="col-xs-1 control-label" for="description">Descrição</label>
                     <div class="col-xs-4">
-                        <input type="text" class="form-control" id="description" name="description" v-model="bonus.description">
+                        <input type="text" class="form-control" id="description" name="description" v-model="bonus.description" maxlength="50">
                     </div>
                     <label class="col-xs-1 control-label" for="cost">Valor</label>
                     <div class="col-xs-2">
-                        <input type="text" class="form-control" id="cost" name="cost" v-model="bonus.cost">
+                        <money class="form-control" id="cost" name="cost" v-bind="money" v-model="bonus.cost"></money>
                     </div>
                 </div>
                 <br>
@@ -56,6 +56,12 @@
             return {
                 bonus: {},
                 bonuses: [],
+                money: {
+                    decimal: ',',
+                    thousands: '.',
+                    precision: 2,
+                    masked: false
+                },
                 fields: [{
                     key: 'code',
                     label: 'Código',
@@ -65,7 +71,7 @@
                     label: 'Descrição',
                     thStyle: 'width: 35%'
                 }, {
-                    key: 'cost',
+                    key: 'costFormatted',
                     label: 'Valor',
                     thStyle: 'width: 20%'
                 }, {
