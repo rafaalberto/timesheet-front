@@ -48,7 +48,7 @@
                         <TimesheetBonus :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" />
                     </div>
                     <div class="tab-pane" id="report">
-                        <TimesheetReport :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" />
+                        <TimesheetDocket :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" />
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@
     import { baseApiUrl, showError} from '@/global'
     import TimesheetHours from '@/components/admin/TimesheetHours'
     import TimesheetBonus from '@/components/admin/TimesheetBonus'
-    import TimesheetReport from '@/components/admin/TimesheetReport'
+    import TimesheetDocket from '@/components/admin/TimesheetDocket'
     export default {
         name: 'TimesheetForm',
-        components: { TimesheetHours, TimesheetBonus, TimesheetReport },
+        components: { TimesheetHours, TimesheetBonus, TimesheetDocket },
         props: {
             employeeId: Object,
             year: Object,

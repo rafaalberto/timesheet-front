@@ -14,6 +14,9 @@ import EmployeeForm from '@/components/admin/EmployeeForm'
 import EmployeeSearch from '@/components/admin/EmployeeSearch'
 import TimesheetGroup from '@/components/admin/TimesheetGroup'
 import TimesheetForm from '@/components/admin/TimesheetForm'
+import EmployeeSearchReport from '@/components/admin/EmployeeSearchReport'
+import TimesheetReportGroup from '@/components/admin/TimesheetReportGroup'
+import TimesheetReport from '@/components/admin/TimesheetReport'
 import Auth from '@/components/auth/Auth'
 
 import { userKey } from '@/global'
@@ -79,6 +82,21 @@ const routes = [{
     name: 'timesheetForm',
     path: '/timesheet/:employeeId/:year/:month',
     component: TimesheetForm
+},
+{
+    name: 'employeeSearchReport',
+    path: '/employeeSearchReport',
+    component: EmployeeSearchReport
+},
+{
+    name: 'timesheetReportGroup',
+    path: '/timesheetReportGroup/:id',
+    component: TimesheetReportGroup
+},
+{
+    name: 'timesheetReport',
+    path: '/timesheetReport/:employeeId/:year/:month',
+    component: TimesheetReport
 },
 {
     name: 'auth',

@@ -6,6 +6,7 @@
             <li><a href="#" @click.prevent="position"><i class="fa fa-suitcase"></i> <span>Cargos</span></a></li>
             <li><a href="#" @click.prevent="employee"><i class="fa fa-users"></i> <span>Colaboradores</span></a></li>
             <li><a href="#" @click.prevent="timesheet"><i class="fa fa-table"></i> <span>Lançamentos</span></a></li>
+            <li><a href="#" @click.prevent="report"><i class="fa fa-print"></i> <span>Relatório</span></a></li>
         </ul>
     </section>
   </aside>
@@ -26,6 +27,9 @@ export default {
         },
         timesheet() {
             this.$router.push({ path: '/employeeSearch' })
+        },
+        report() {
+            this.$router.push({ path: '/employeeSearchReport' })
         }
     }
 }

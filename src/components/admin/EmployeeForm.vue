@@ -30,7 +30,7 @@
                   </div>
                </div>
                <div class="form-group">
-                  <label class="col-sm-2 control-label" for="costCenter">Centro de Custo</b></label>
+                  <label class="col-sm-2 control-label" for="costCenter">Centro de Custo</label>
                   <div class="col-sm-3">
                      <input type="text" class="form-control" id="costCenter" name="costCenter" v-model="employee.costCenter" maxlength="20" v-mask="'####################'">
                   </div>
