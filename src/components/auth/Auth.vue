@@ -24,6 +24,7 @@
 </template>
 <script>
    import { baseApiUrl, showError, userKey } from '@/global'
+   import { mapState } from 'vuex'
    import axios from 'axios'
    
    export default {
@@ -41,10 +42,15 @@
                        localStorage.setItem(userKey, JSON.stringify(res.data))
                        this.$router.push({ path: '/employeeSearch' })
                    }).catch(showError)
+           },
+           authLoad() {
+               localStorage.removeItem(userKey)
+               this.$store.commit('setUser', null)
            }
        },
        mounted() {
            this.$refs.username.focus()
+           this.authLoad()
        }
    }
 </script>
