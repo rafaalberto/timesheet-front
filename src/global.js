@@ -1,14 +1,20 @@
 import Vue from 'vue'
+import router from './config/router'
 
 export const userKey = '__api_user'
-export const baseApiUrl = 'http://localhost:8080/timesheet-api'
+export const baseApiUrl = 'http://localhost:8080'
 
 export function showError(error) {
     if(error && error.response && error.response.data) {
         if(error.response.data[0] !== undefined) {
             Vue.toasted.global.defaultError({ msg: error.response.data[0].message })
         }else{
-            Vue.toasted.global.defaultError({ msg: error.response.data.errors[0].message })
+            if(error.response.status === 403) {
+                localStorage.removeItem(userKey)
+                router.push({ name: 'auth' })
+            }else{
+                Vue.toasted.global.defaultError({ msg: error.response.data.errors[0].message })
+            }
         }
     }else {
         Vue.toasted.global.defaultError()
