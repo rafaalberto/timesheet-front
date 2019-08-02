@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from './config/router'
 
 export const userKey = '__api_user'
-export const baseApiUrl = 'http://localhost:8080'
+export const baseApiUrl = 'http://localhost:8080/timesheet-api'
 
 export function showError(error) {
     if(error && error.response && error.response.data) {
