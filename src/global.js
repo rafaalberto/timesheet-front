@@ -12,6 +12,8 @@ export function showError(error) {
             if(error.response.status === 403) {
                 localStorage.removeItem(userKey)
                 router.push({ name: 'auth' })
+            }else if(error.response.status === 401) {
+                Vue.toasted.global.defaultError({ msg: 'Acesso não autorizado!' })
             }else{
                 Vue.toasted.global.defaultError({ msg: error.response.data.errors[0].message })
             }

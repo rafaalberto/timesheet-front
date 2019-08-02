@@ -43,6 +43,10 @@
          }
          const token = userData.token
          const res = await axios.get(`${baseApiUrl}/auth/token/validate/${token}`)
+         .then()
+         .catch(error => {
+           this.$toasted.global.defaultError({ msg: 'Erro ao conectar!' })
+         })
          if(res.data.isValid){
            this.$store.commit('setUser', userData)
          }else{
