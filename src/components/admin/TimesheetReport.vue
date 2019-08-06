@@ -129,7 +129,8 @@
                 this.period = monthNames[this.$route.params.month - 1] + '/' + this.$route.params.year
             },
             fetchDaily() {
-                const url = `${baseApiUrl}/timesheet/daily/${this.employeeParam}/${this.yearParam}/${this.monthParam}`
+                const asc = true
+                const url = `${baseApiUrl}/timesheet/daily/${this.employeeParam}/${this.yearParam}/${this.monthParam}/${asc}`
                 axios.get(url).then(response => this.timesheets = response.data)
                 .catch(showError)
             },
