@@ -238,6 +238,10 @@
                         this.reset()
                         this.fetchDaily()
                     }).catch(showError)
+                    this.timeIn = {},
+                        this.lunchStart = {},
+                        this.lunchEnd = {},
+                        this.timeOut = {}
                 },
             setDateTime() {
                 const { yearParam } = this.year
