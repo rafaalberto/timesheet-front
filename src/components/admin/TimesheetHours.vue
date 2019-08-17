@@ -186,8 +186,9 @@
                 const { employeeParam } = this.employeeId
                 const { yearParam } = this.year
                 const { monthParam } = this.month
+                const asc = false
 
-                const url = `${baseApiUrl}/timesheet/daily/${employeeParam}/${yearParam}/${monthParam}`
+                const url = `${baseApiUrl}/timesheet/daily/${employeeParam}/${yearParam}/${monthParam}/${asc}`
                 axios.get(url).then(response => this.timesheets = response.data)
                 .catch(showError)
 
@@ -237,6 +238,10 @@
                         this.reset()
                         this.fetchDaily()
                     }).catch(showError)
+                    this.timeIn = {},
+                        this.lunchStart = {},
+                        this.lunchEnd = {},
+                        this.timeOut = {}
                 },
             setDateTime() {
                 const { yearParam } = this.year
