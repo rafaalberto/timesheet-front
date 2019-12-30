@@ -19,6 +19,7 @@
                             <option value="REGULAR">Normal</option>
                             <option value="DAY_OFF">Folga</option>
                             <option value="HOLIDAY">Feriado</option>
+                            <option value="VACATION">Férias</option>
                         </select>
                     </div>
                 </div>
@@ -96,6 +97,7 @@
             year: Object,
             month: Object,
             costHour: Object,
+            dangerousness: Object,
         },
         data() {
             return {
@@ -200,6 +202,10 @@
                 const { yearParam } = this.year
                 const { monthParam } = this.month
                 const { costHourParam } = this.costHour
+                const { dangerousness } = this.dangerousness
+
+                //eslint-disable-next-line
+                console.log(dangerousness);
                 
                 this.timesheet.employeeId = employeeParam
                 this.timesheet.yearReference = yearParam
@@ -215,13 +221,14 @@
                 this.timesheet.hoursJourney = '07:20'
                 this.timesheet.sumula90 = '01:00'
                 this.timesheet.costHour = costHourParam
+                this.timesheet.dangerousness = dangerousness
 
                 if (this.timesheet.type === 'REGULAR' || this.timesheet.type === 'HOLIDAY') {
                     this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)
                     this.timesheet.lunchStart = moment(this.lunchStart).format(dateTimeFormat)
                     this.timesheet.lunchEnd = moment(this.lunchEnd).format(dateTimeFormat)
                     this.timesheet.timeOut = moment(this.timeOut).format(dateTimeFormat)
-                } else if (this.timesheet.type === 'DAY_OFF') {
+                } else if (this.timesheet.type === 'DAY_OFF' || this.timesheet.type === 'VACATION') {
                     this.timeIn = new Date(`${this.date} 00:00`)
                     this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)
                     this.timesheet.lunchStart = moment(this.timeIn).format(dateTimeFormat)

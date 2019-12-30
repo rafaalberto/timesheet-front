@@ -42,7 +42,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="hours">
-                        <TimesheetHours :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" :costHour="{costHourParam}" />
+                        <TimesheetHours :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" :costHour="{costHourParam}" :dangerousness="{dangerousness}" />
                     </div>
                     <div class="tab-pane" id="bonus">
                         <TimesheetBonus :employeeId="{employeeParam}" :year="{yearParam}" :month="{monthParam}" />
@@ -76,6 +76,7 @@
                 yearParam: this.$route.params.year,
                 monthParam: this.$route.params.month,
                 costHourParam: 0,
+                dangerousness: false,
                 period: {},
                 employee: {
                     company: {},
@@ -89,6 +90,7 @@
                 axios.get(url).then(response => {
                     this.employee = response.data
                     this.costHourParam = this.employee.costHour
+                    this.dangerousness = this.employee.position.dangerousness
                 })
                 .catch(showError)
             },
