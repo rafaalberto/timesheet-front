@@ -20,7 +20,12 @@
                             <option value="DAY_OFF">Folga</option>
                             <option value="HOLIDAY">Feriado</option>
                             <option value="VACATION">Férias</option>
+                            <option value="OCCURRENCE">Ocorrência</option>
                         </select>
+                    </div>
+                    <label class="col-xs-1 control-label" for="notes">Observações</label>
+                    <div class="col-xs-3">
+                        <input type="text" class="form-control" id="notes" name="notes" maxlength="30" v-model="timesheet.notes">
                     </div>
                 </div>
                 <br>
@@ -111,26 +116,27 @@
                 lunchStart: {},
                 lunchEnd: {},
                 timeOut: {},
+                notes: {},
                 fields: [{
                     key: 'date',
                     label: 'Data',
-                    thStyle: 'width: 14%'
+                    thStyle: 'width: 8%'
                 }, {
                     key: 'type',
-                    label: 'Tipo',
-                    thStyle: 'width: 12%'
+                    label: 'Descrição',
+                    thStyle: 'width: 28%'
                 }, {
                     key: 'entry',
                     label: 'Registros',
-                    thStyle: 'width: 20%'
+                    thStyle: 'width: 15%'
                 }, {
                     key: 'hoursWorked',
                     label: 'H. Trab',
-                    thStyle: 'text-align:center;width: 7%'
+                    thStyle: 'text-align:center;width: 6%'
                 }, {
                     key: 'hoursJourney',
                     label: 'Jornada',
-                    thStyle: 'text-align:center;width: 7%'
+                    thStyle: 'text-align:center;width: 6%'
                 }, {
                     key: 'extraHours',
                     label: 'H. Extras',
@@ -138,19 +144,19 @@
                 }, {
                     key: 'weeklyRest',
                     label: 'DSR',
-                    thStyle: 'text-align:center;width: 7%'
+                    thStyle: 'text-align:center;width: 6%'
                 }, {
                     key: 'sumula90',
                     label: 'S.90',
-                    thStyle: 'text-align:center;width: 7%'
+                    thStyle: 'text-align:center;width: 6%'
                 }, {
                     key: 'nightShift',
                     label: 'ADN',
-                    thStyle: 'text-align:center;width: 7%'
+                    thStyle: 'text-align:center;width: 6%'
                 }, {
                     key: 'paidNightTime',
                     label: 'HNR',
-                    thStyle: 'text-align:center;width: 7%'
+                    thStyle: 'text-align:center;width: 6%'
                 }, {
                     key: 'delete',
                     label: 'Excluir',
@@ -204,9 +210,6 @@
                 const { costHourParam } = this.costHour
                 const { dangerousness } = this.dangerousness
 
-                //eslint-disable-next-line
-                console.log(dangerousness);
-                
                 this.timesheet.employeeId = employeeParam
                 this.timesheet.yearReference = yearParam
                 this.timesheet.monthReference = monthParam
@@ -228,7 +231,7 @@
                     this.timesheet.lunchStart = moment(this.lunchStart).format(dateTimeFormat)
                     this.timesheet.lunchEnd = moment(this.lunchEnd).format(dateTimeFormat)
                     this.timesheet.timeOut = moment(this.timeOut).format(dateTimeFormat)
-                } else if (this.timesheet.type === 'DAY_OFF' || this.timesheet.type === 'VACATION') {
+                } else if (this.timesheet.type === 'DAY_OFF' || this.timesheet.type === 'VACATION' || this.timesheet.type === 'OCCURRENCE') {
                     this.timeIn = new Date(`${this.date} 00:00`)
                     this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat)
                     this.timesheet.lunchStart = moment(this.timeIn).format(dateTimeFormat)
@@ -274,6 +277,7 @@
                 this.lunchStart = {},
                 this.lunchEnd = {},
                 this.timeOut = {},
+                this.timesheet.notes = '',
                 this.$refs.dayOfMonth.focus()
             },
             remove(item) {
