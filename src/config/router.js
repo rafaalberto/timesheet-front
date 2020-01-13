@@ -80,7 +80,7 @@ const routes = [{
 },
 {
     name: 'timesheetForm',
-    path: '/timesheet/:employeeId/:year/:month',
+    path: '/timesheet/:employeeId/:year/:month/:period',
     component: TimesheetForm
 },
 {
@@ -111,7 +111,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const json = localStorage.getItem(userKey)
 
-    if(to.matched.some(record => record.meta.requiresAdmin)) {
+    if (to.matched.some(record => record.meta.requiresAdmin)) {
         const user = JSON.parse(json)
         //user && user.admin ? next() : next({ path: '/' })
         user ? next() : next({ path: '/' })
