@@ -116,6 +116,9 @@
         <template slot="hoursJourney" slot-scope="data">
           <div class="text-center-align">{{data.item.hoursJourney}}</div>
         </template>
+        <template slot="hoursAdjustment" slot-scope="data">
+          <div class="text-center-align">{{data.item.hoursAdjustment}}</div>
+        </template>
         <template slot="extraHours" slot-scope="data">
           <div class="text-center-align">{{data.item.extraHours}}</div>
         </template>
@@ -182,7 +185,7 @@ export default {
         {
           key: "type",
           label: "Descrição",
-          thStyle: "width: 28%"
+          thStyle: "width: 22%"
         },
         {
           key: "entry",
@@ -197,6 +200,11 @@ export default {
         {
           key: "hoursJourney",
           label: "Jornada",
+          thStyle: "text-align:center;width: 6%"
+        },
+        {
+          key: "hoursAdjustment",
+          label: "Comp.",
           thStyle: "text-align:center;width: 6%"
         },
         {
@@ -294,6 +302,7 @@ export default {
 
       this.timesheet.hoursJourney = "07:20";
       this.timesheet.sumula90 = "01:00";
+      this.timesheet.hoursAdjustment = "00:50";
       this.timesheet.costHour = costHourParam;
       this.timesheet.dangerousness = dangerousness;
 
