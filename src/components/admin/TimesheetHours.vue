@@ -302,7 +302,13 @@ export default {
 
       this.timesheet.hoursJourney = "07:20";
       this.timesheet.sumula90 = "01:00";
-      this.timesheet.hoursAdjustment = "00:50";
+
+      if(this.timesheet.period === "ENTRESSAFRA") {
+        this.timesheet.hoursAdjustment = "00:48";
+      }else {
+        this.timesheet.hoursAdjustment = "00:00";
+      }
+      
       this.timesheet.costHour = costHourParam;
       this.timesheet.dangerousness = dangerousness;
 
