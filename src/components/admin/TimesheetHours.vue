@@ -291,6 +291,7 @@ export default {
           this.lunchStart = array[1];
           this.lunchEnd = array[2];
           this.timeOut = array[3];
+          this.setNextDay(this.timesheets);
         })
         .catch(showError);
       } else {
@@ -302,6 +303,7 @@ export default {
           this.lunchStart = array[1];
           this.lunchEnd = array[2];
           this.timeOut = array[3];
+          this.setNextDay(this.timesheets);
         })
         .catch(showError);
       }
@@ -421,6 +423,14 @@ export default {
         clickOverlay: () => {}
       });
     },
+    setNextDay(timesheets) {
+      if(timesheets.length > 0) {
+        const day = this.timesheets[0].date.split('/')[0];
+        this.dayOfMonth = Number(day) + 1;
+      } else {
+        this.dayOfMonth = 1;
+      }
+    }
   },
   mounted() {
     this.fetchDays();
