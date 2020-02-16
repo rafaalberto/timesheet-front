@@ -58,6 +58,14 @@
                   </div>
                </div>
                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="status">Turno<b class="required-field"> *</b></label>
+                  <div class="col-sm-3">
+                     <select class="form-control" name="officeHour" id="officeHour" v-model="employee.officeHour">
+                        <option :value="officeHour.code" v-for="officeHour in officeHours" :key="officeHour.code">{{ officeHour.description }}</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="form-group">
                   <label class="col-sm-2 control-label" for="status">Situação<b class="required-field"> *</b></label>
                   <div class="col-sm-2">
                      <select class="form-control" name="status" id="status" v-model="employee.status">
@@ -92,11 +100,13 @@ export default {
             employee: {
                status: 'ACTIVE',
                company: {},
-               position: {}
+               position: {},
+               officeHour: 'HOUR_A',
             },
             employeeId: this.$route.params.id,
             positions: [],
             companies: [],
+            officeHours: [],
             money: {
                decimal: ',',
                thousands: '.',
@@ -140,16 +150,25 @@ export default {
                this.companies = response.data.content
             })
          .catch(showError)
+      },
+      fetchOfficeHours() {
+         const url = `${baseApiUrl}/positions/officeHours/SAFRA`
+         axios.get(url)
+            .then(response => {
+               this.officeHours = response.data;
+            })
+         .catch(showError)
       }
     },
     mounted() {
       if(this.employeeId !== 0) {
         this.employee.id = this.employeeId
-        this.loadEmployee()
+        this.loadEmployee();
       } 
-      this.$refs.name.focus()
-      this.fetchPositions()
-      this.fetchCompanies()
+      this.$refs.name.focus();
+      this.fetchPositions();
+      this.fetchCompanies();
+      this.fetchOfficeHours();
     }
 }
 </script>

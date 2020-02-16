@@ -23,10 +23,11 @@
           <label class="col-xs-1 control-label" for="type">Tipo</label>
           <div class="col-xs-2">
             <select class="form-control" name="type" id="type" v-model="type">
-              <option value="REGULAR">Normal</option>
-              <option value="DAY_OFF">Folga</option>
-              <option value="HOLIDAY">Feriado</option>
+              <option value="ADJUSTMENT">Compensado</option>
               <option value="VACATION">Férias</option>
+              <option value="HOLIDAY">Feriado</option>
+              <option value="DAY_OFF">Folga</option>
+              <option value="REGULAR">Normal</option>
               <option value="OCCURRENCE">Ocorrência</option>
             </select>
           </div>
@@ -312,27 +313,20 @@ export default {
       this.timesheet.costHour = costHourParam;
       this.timesheet.dangerousness = dangerousness;
 
-      if (
-        this.timesheet.type === "REGULAR" ||
-        this.timesheet.type === "HOLIDAY"
-      ) {
-        this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat);
-        this.timesheet.lunchStart = moment(this.lunchStart).format(
-          dateTimeFormat
-        );
-        this.timesheet.lunchEnd = moment(this.lunchEnd).format(dateTimeFormat);
-        this.timesheet.timeOut = moment(this.timeOut).format(dateTimeFormat);
-      } else if (
-        this.timesheet.type === "DAY_OFF" ||
-        this.timesheet.type === "VACATION" ||
-        this.timesheet.type === "OCCURRENCE"
-      ) {
+      if (this.timesheet.type === "REGULAR" || this.timesheet.type === "HOLIDAY") {
+          this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat);
+          this.timesheet.lunchStart = moment(this.lunchStart).format(dateTimeFormat);
+          this.timesheet.lunchEnd = moment(this.lunchEnd).format(dateTimeFormat);
+          this.timesheet.timeOut = moment(this.timeOut).format(dateTimeFormat);
+      } else if (this.timesheet.type === "DAY_OFF" || this.timesheet.type === "VACATION" 
+        || this.timesheet.type === "OCCURRENCE" || this.timesheet.type === "ADJUSTMENT") {
         this.timeIn = new Date(`${this.date} 00:00`);
         this.timesheet.timeIn = moment(this.timeIn).format(dateTimeFormat);
         this.timesheet.lunchStart = moment(this.timeIn).format(dateTimeFormat);
         this.timesheet.lunchEnd = moment(this.timeIn).format(dateTimeFormat);
         this.timesheet.timeOut = moment(this.timeIn).format(dateTimeFormat);
         this.timesheet.sumula90 = "00:00";
+        this.timesheet.hoursAdjustment = "00:00";
       }
 
       const method = "post";

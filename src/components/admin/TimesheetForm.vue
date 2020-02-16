@@ -36,9 +36,9 @@
             <input
               type="text"
               class="form-control"
-              id="period"
-              name="period"
-              v-model="period"
+              id="reference"
+              name="reference"
+              v-model="reference"
               readonly
             />
           </div>
@@ -57,13 +57,24 @@
             />
           </div>
           <label class="col-xs-1 control-label" for="position">Cargo</label>
-          <div class="col-xs-4">
+          <div class="col-xs-3">
             <input
               type="text"
               class="form-control"
               id="position"
               name="position"
               v-model="employee.position.title"
+              readonly
+            />
+          </div>
+          <label class="col-xs-1 control-label" for="period">Período</label>
+          <div class="col-xs-2">
+            <input
+              type="text"
+              class="form-control"
+              id="period"
+              name="period"
+              v-model="periodParam"
               readonly
             />
           </div>
@@ -145,6 +156,7 @@ export default {
       costHourParam: 0,
       dangerousness: false,
       periodMonth: [],
+      reference: this.$route.params.month + '/' + this.$route.params.year,
       employee: {
         company: {},
         position: {}
