@@ -161,7 +161,8 @@ export default {
     month: Object,
     costHour: Object,
     dangerousness: Object,
-    period: Object
+    period: Object,
+    officeHours: Object,
   },
   data() {
     return {
@@ -264,12 +265,13 @@ export default {
 
       for (let day = 1; day <= this.quantityDaysOfMonth; day++) {
         this.days.push(day);
-      }
+      }     
     },
     fetchDaily() {
       const { employeeParam } = this.employeeId;
       const { yearParam } = this.year;
       const { monthParam } = this.month;
+      const { periodParam } = this.period;
       const asc = false;
 
       const url = `${baseApiUrl}/timesheet/daily/${employeeParam}/${yearParam}/${monthParam}/${asc}`;
@@ -279,6 +281,30 @@ export default {
         .catch(showError);
 
       eventBus.$emit("dataChanged");
+
+      if(periodParam === 'SAFRA') {
+        axios.get(`${baseApiUrl}/employees/${employeeParam}`)
+        .then(response => {
+          const {officeHourDescription } = response.data;
+          const array = officeHourDescription.split('-');
+          this.timeIn = array[0];
+          this.lunchStart = array[1];
+          this.lunchEnd = array[2];
+          this.timeOut = array[3];
+        })
+        .catch(showError);
+      } else {
+        axios.get(`${baseApiUrl}/positions/officeHours/ENTRESSAFRA`)
+        .then(response => {
+          const officeHourDescription  = response.data[0].description;
+          const array = officeHourDescription.split('-');
+          this.timeIn = array[0];
+          this.lunchStart = array[1];
+          this.lunchEnd = array[2];
+          this.timeOut = array[3];
+        })
+        .catch(showError);
+      }
     },
     save() {
       this.setDateTime();
@@ -363,10 +389,6 @@ export default {
       (this.type = "REGULAR"),
         (this.date = {}),
         (this.dayOfMonth = 1),
-        (this.timeIn = {}),
-        (this.lunchStart = {}),
-        (this.lunchEnd = {}),
-        (this.timeOut = {}),
         (this.timesheet.notes = ""),
         this.$refs.dayOfMonth.focus();
     },
@@ -398,7 +420,7 @@ export default {
         cancelAfter: () => {},
         clickOverlay: () => {}
       });
-    }
+    },
   },
   mounted() {
     this.fetchDays();

@@ -103,6 +103,7 @@
               :costHour="{costHourParam}"
               :dangerousness="{dangerousness}"
               :period="{periodParam}"
+              :officeHours="{officeHoursParam}"
             />
           </div>
           <div class="tab-pane" id="bonus">
@@ -157,6 +158,7 @@ export default {
       dangerousness: false,
       periodMonth: [],
       reference: this.$route.params.month + '/' + this.$route.params.year,
+      officeHoursParam: {},
       employee: {
         company: {},
         position: {}
@@ -172,6 +174,7 @@ export default {
           this.employee = response.data;
           this.costHourParam = this.employee.costHour;
           this.dangerousness = this.employee.position.dangerousness;
+          this.officeHoursParam = this.employee.officeHourDescription;
         })
         .catch(showError);
     },
