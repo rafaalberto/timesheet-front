@@ -12,7 +12,7 @@
     "bootstrap-vue": "^2.0.0-rc.13",
     "express": "^4.17.1",
     "global": "^4.3.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "v-money": "^0.8.1",
     "vue": "^2.5.21",
